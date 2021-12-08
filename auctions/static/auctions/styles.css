@@ -1,3 +1,66 @@
 body {
-    padding: 10px;
+    padding: 20px;
+    margin: 0;
+}
+
+#username {
+    position: absolute;
+    right: 40px;
+}
+
+.topnav {
+    background-color: lightgray;
+    padding: 0;
+}
+
+.topnav li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.topnav a {
+    width: 19.19vw;
+    display: inline-block;
+    text-align: center;
+    color: black;
+}
+
+.topnav ul {
+    padding-left: 0 !important;
+}
+
+.topnav a:hover {
+    background-color: gray;
+}
+
+.topnav a.active {
+    background-color: gray;
+}
+
+.parent-container {
+    display: flex;
+}
+
+.container-description {
+    display: flex;
+}
+
+.container-bid {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+    margin-left: 30px;
+}
+
+.listing-container {
+    display: flex;
+    background-color: lightgray;
+    color: black;
+    margin-bottom: 2rem;
+}
+
+.description-container {
+    margin: 30px;
 }

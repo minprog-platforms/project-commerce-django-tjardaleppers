@@ -1,7 +1,31 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+    <br>
+    {% if user.is_authenticated %}
+        <h2>Active Listings</h2><hr>
 
-    TODO
+            {% for listing in listings %}
+                <a href="{% url 'listing' listing.id %}" style="text-decoration: none;"><div class="listing-container">
+                    <div class="image-container">
+                        <img src="{{ listing.image }}" alt="Image" width="400px" height="400px">
+                    </div>
+                    <div class="description-container">
+                        <h4>{{ listing.title }} 
+                            {% if listing.closed %}
+                                (closed)
+                            {% endif %}
+                        </h4>
+                        <p><strong>Description:</strong> {{ listing.description }}</p>
+                        {% if listing.current_price %}
+                            <p><strong>Price:</strong> €{{ listing.current_price }}</p>
+                        {% else %}
+                            <p><strong>Price:</strong> €{{ listing.starting_price }}</p>
+                        {% endif %}
+                    </div>
+                </div></a>
+            {% endfor %}
+    {% else %}
+        <hr><h2>Log in to view active listings</h2>
+    {% endif %}
 {% endblock %}

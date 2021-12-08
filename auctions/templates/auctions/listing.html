@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<br><br>
+<div class="listing-container">
+    <div class="image-container">
+            <img src="{{ listing.image }}" alt="Image" width="400px" height="400px">
+        </div>
+        <div class="description-container">
+            <h4>{{ listing.title }} 
+                {% if listing.closed %}
+                    (closed)
+                {% endif %}
+            </h4>
+            <p><strong>Description:</strong> {{ listing.description }}</p>
+            {% if listing.current_price %}
+                <p><strong>Current price:</strong> €{{ listing.current_price }}</p>
+                <p><strong>Starting price:</strong> €{{ listing.starting_price }}</p>
+            {% else %}
+                <p><strong>Current price:</strong> €{{ listing.starting_price }}</p>
+                <p><strong>Starting price:</strong> €{{ listing.starting_price }}</p>
+            {% endif %}
+        </div>
+</div>    
+{% endblock %}

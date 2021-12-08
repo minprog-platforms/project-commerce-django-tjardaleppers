@@ -9,31 +9,29 @@
     </head>
     <body>
         <h1>Auctions</h1>
-        <div>
+        <div id="username">
             {% if user.is_authenticated %}
-                Signed in as <strong>{{ user.username }}</strong>.
+                <i>Signed in as <strong>{{ user.username }}</strong></i>
             {% else %}
-                Not signed in.
+                <i>Not signed in</i>
             {% endif %}
         </div>
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
-            </li>
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login' %}">Log In</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'register' %}">Register</a>
-                </li>
-            {% endif %}
-        </ul>
-        <hr>
+        <br><br>
+        <div class="topnav">
+            <ul>
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Active Listings</a></li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link">Categories</a></li>
+                    <li class="nav-item"><a class="nav-link">Watchlist</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'create listing' %}">Create listing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log Out</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                {% endif %} 
+            </ul>
+            
+        </div>
         {% block body %}
         {% endblock %}
     </body>
