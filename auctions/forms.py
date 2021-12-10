@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import fields
 from django.forms import widgets
-from .models import AuctionListings, Comments
+from .models import AuctionListings, Comments, Bids
 
 class CreateListing(forms.ModelForm):
     title = forms.CharField(required=True, label="Title", label_suffix="", widget=forms.TextInput(attrs={'placeholder':'Title'}))
@@ -13,8 +13,14 @@ class CreateListing(forms.ModelForm):
         model = AuctionListings
         fields = ["title", "description", "starting_price", "image", "category"]
 
-# class AddComment(forms.ModelForm):
-#     comment = forms.CharField(required=True, widget=forms.Textarea(attrs={'placeholder':'Comment'}))
-#     class Meta:
-#         model = Comments
-#         fields = ["comment"]
+class AddComment(forms.ModelForm):
+    comment = forms.CharField(required=True, widget=forms.Textarea(attrs={'placeholder':'Comment'}))
+    class Meta:
+        model = Comments
+        fields = ["comment"]
+
+class AddBid(forms.ModelForm):
+    bid_price = forms.DecimalField(required=True, widget=forms.NumberInput(attrs={'placeholder':'Bid price'}))
+    class Meta:
+        model = Bids
+        fields = ["bid_price"]

@@ -9,17 +9,55 @@
         <div class="description-container">
             <h4>{{ listing.title }} 
                 {% if listing.closed %}
-                    (closed)
+                    (listing is closed)
                 {% endif %}
             </h4>
-            <p><strong>Description:</strong> {{ listing.description }}</p>
-            {% if listing.current_price %}
-                <p><strong>Current price:</strong> €{{ listing.current_price }}</p>
-                <p><strong>Starting price:</strong> €{{ listing.starting_price }}</p>
-            {% else %}
-                <p><strong>Current price:</strong> €{{ listing.starting_price }}</p>
-                <p><strong>Starting price:</strong> €{{ listing.starting_price }}</p>
+            {% if user.id == listing.seller.id %}
+            {% if not listing.closed %}
+                <form action="{% url 'close listing' listing.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-secondary" value="Close listing">
+                </form>
             {% endif %}
+            {% endif %}
+            <br>
+            {% if listing.closed %}
+                <p><strong>Winner:</strong> {{ listing.bids.last.bidder }}</p>
+            {% endif %}
+            <p><strong>Description:</strong> {{ listing.description }}</p>
+            <p><strong>Current price:</strong> €{{ listing.current_price }}</p>
+            <p><strong>Starting price:</strong> €{{ listing.starting_price }}</p>
+
+            <div class="commentbid-container">
+                <p><strong>Comments:</strong></p>
+                {% if not listing.comments.all %}
+                    <p>No comments added yet</p>
+                {% else %}
+                    {% for comment in listing.comments.all %}
+                        <p>{{ comment.comment_body }}
+                        <br><small>Posted by: {{ comment.user }} on {{ comment.date }}</small></p>
+                    {% endfor %}
+                {% endif %}
+                
+                {% if not listing.closed %}
+                    <p><a class="btn btn-secondary" href="{% url 'new comment' listing.id %}">Add comment</a></p>
+                {% endif %}
+            </div>
+            <div class="commentbid-container">
+                <p><strong>Bids:</strong></p>
+                {% if not listing.bids.all %}
+                    <p>No bids placed yet</p>
+                {% else %}
+                    {% for bid in listing.bids.all %}
+                        <p>Bid: €{{ bid.bid_price }}
+                        <br><small>Placed by: {{ bid.bidder }} on {{ bid.bid_time }}</small></p>
+                    {% endfor %}
+                {% endif %}
+                
+                {% if not listing.closed %}
+                    <p><a class="btn btn-secondary" href="{% url 'new bid' listing.id %}">Place bid</a></p>
+                {% endif %}
+            </div>
         </div>
 </div>    
 {% endblock %}

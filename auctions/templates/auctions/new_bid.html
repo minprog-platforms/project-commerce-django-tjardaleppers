@@ -1,0 +1,11 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <form action="{% url 'new bid' listing.id %}" method="post">
+        {% csrf_token %}
+        <div class="comment-container">
+            {{ form.bid_price }}
+            <input class="btn btn-secondary"type="submit" value="Place bid">
+        </div>
+    </form>
+{% endblock %}
